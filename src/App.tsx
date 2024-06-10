@@ -1,12 +1,17 @@
 import './App.scss'
-import { Header, Hero } from './components/index.ts'
+import { Header, Footer } from './components/index.ts'
+import { Layout } from './template/index.ts'
+import AllRoutes from './routes/Route.tsx'
 
 function App() {
 
   return (
     <div className="App">
       <Header />
-      <Hero />
+      <Layout>
+        <AllRoutes />
+      </Layout>
+      <Footer />
     </div>
   )
 }
