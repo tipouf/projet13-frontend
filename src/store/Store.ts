@@ -1,30 +1,13 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { Login } from "../pages/login/Login";
-import { LoginForm } from "../components/login/LoginForm";  
+import { configureStore } from '@reduxjs/toolkit'
+import authReducer from '../store/authSlice'
 
-const initialState = {
-  login: "",
-  password: "",
-};
-
-
-export const store = createSlice({
-  name: "login",
-  initialState: initialState,
-  reducers: {
-    login: (state, action) => {
-      state.login = action.payload;
-    },
-    password: (state, action) => {
-      state.password = action.payload;
-    },
+export const store = configureStore({
+  reducer: {
+    auth: authReducer
   },
-});
+})
 
-
-export const { login, password } = store.actions;
-
-export default store.reducer;
-
-
-
+// Infer the `RootState` and `AppDispatch` types from the store itself
+export type RootState = ReturnType<typeof store.getState>
+// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
+export type AppDispatch = typeof store.dispatch

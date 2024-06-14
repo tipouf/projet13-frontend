@@ -1,7 +1,10 @@
-import {Routes, Route} from 'react-router-dom'
+import {Routes, Route, Navigate} from 'react-router-dom'
+// import { useAuth } from '../store'
 import { Home, Login, Profil } from '../pages';
 
 const AllRoutes = () => {
+	// const { isAuthenticated } = useAuth()
+	
 	return (
 		<Routes>
 			<Route path="/" element={<Home />} />
