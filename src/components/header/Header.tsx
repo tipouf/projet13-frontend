@@ -15,12 +15,10 @@ const Header = () => {
       </Link>
 
       <div>
-      <Link className="main-nav-item" to="/login">
-        <a className="main-nav-item" href="./sign-in.html">
+        <Link className="main-nav-item" to="/login">
           <i className="fa fa-user-circle"></i>
           Sign In
-        </a>
-      </Link>
+        </Link>
       </div>
     </nav>
   )

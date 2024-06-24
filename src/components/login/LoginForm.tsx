@@ -1,33 +1,69 @@
+
+import { useDispatch, useSelector } from 'react-redux'
+import { useForm} from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
+import { login } from '../../redux/slices/authSlice'
 import './LoginForm.scss'
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
+
+type LoginFormData = {
+  email: string;
+  password: string;
+}
 
 const LoginForm = () => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  let navigate = useNavigate()
+
+  const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>()
+
+  const { isLoggedIn } = useSelector((state) => state.auth);
+
+  if (isLoggedIn) {
+    navigate('/profile')
+  }
+
+  const dispatch = useDispatch()
+
+  const onSubmit = async (data: LoginFormData) => {
+    try {
+      await dispatch(login(data)).unwrap().then((dataResponse: { token: string } | undefined) => console.log("datavvdfdf", dataResponse))
+    } catch (error) {
+      console.error("error login", error)
+    }
+  }
+
+
 
   return (
     <main className="main bg-dark">
     <section className="sign-in-content">
       <i className="fa fa-user-circle sign-in-icon"></i>
       <h1>Sign In</h1>
-    <form className="login-form">
+    <form onSubmit={handleSubmit(onSubmit)}>
       <input
         type="text"
         placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        {...register('email', { required: true, pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ },)}
+        autoComplete="username"
+        autoFocus
       />
+      <p className="error-message">
+        {errors.email && errors.email.type === 'pattern' && <span>Le format de l'email est invalide</span>}
+        {errors.email && errors.email.type === 'required' && <span>L'email est obligatoire</span>}
+      </p>
       <input
         type="password"
         placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        {...register('password', { required: true, minLength: 8 })}
+        autoComplete="current-password"
       />
-      <Link to="/home">
-        <button>Sign In</button>
-      </Link>
+      <p className="error-message">
+      {errors.password && errors.password.type === 'required' && <span>Le mot de passe est obligatoire</span>}
+      {errors.password && errors.password.type === 'minLength' && <span>Le mot de passe doit contenir au moins 8 caractères</span>}
+      </p>
+    
+      <button className="sign-in-button" type="submit">Sign In</button>
     </form>
+
     </section>
     </main>
   )
