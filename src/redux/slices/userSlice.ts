@@ -25,5 +25,13 @@ export const getUser = createAsyncThunk(
   }
 )
 
+export const updateUser = createAsyncThunk(
+  'user/updateUser',
+  async (data: any) => {
+    const response = await UserService.updateUser(data)
+    return response
+  }
+)
+
 const { reducer } = userSlice
 export default reducer

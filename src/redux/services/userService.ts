@@ -28,9 +28,10 @@ export const getUser = async () => {
 }
 
 export const updateUser = async (data: any) => {
+	console.log("dataUpdateUser", data)
 	const token = getUserToken()
 	const response = await fetch(`${API_URL}/user/profile`, {
-		method: 'PATCH',
+		method: 'PUT',
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`
