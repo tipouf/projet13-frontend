@@ -1,4 +1,5 @@
 
+import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useForm} from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
@@ -13,21 +14,24 @@ type LoginFormData = {
 const LoginForm = () => {
   let navigate = useNavigate()
 
+  const [error, setError] = useState<string | null>(null)
+
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>()
 
-  const { isLoggedIn } = useSelector((state) => state.auth);
-
-  if (isLoggedIn) {
-    navigate('/profile')
-  }
+  const { isConnected } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch()
 
   const onSubmit = async (data: LoginFormData) => {
     try {
       await dispatch(login(data)).unwrap().then((dataResponse: { token: string } | undefined) => console.log("datavvdfdf", dataResponse))
+      .then(() => isConnected && navigate('/profil'))
+
+      setError(null)
+
     } catch (error) {
       console.error("error login", error)
+      setError('Invalid email or password')
     }
   }
 
@@ -62,6 +66,7 @@ const LoginForm = () => {
       </p>
     
       <button className="sign-in-button" type="submit">Sign In</button>
+      {error && <p className="error-message">{error}</p>}
     </form>
 
     </section>
