@@ -1,9 +1,27 @@
 import './Profil.scss'
+import { useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { getUser } from '../../redux/slices/userSlice'
 const Profil = () => {
+  const [user, setUser] = useState<User | null>(null)
+
+  const dispatch = useDispatch()
+
+  type User = {
+    firstName: string
+    lastName: string
+  }
+
+  useEffect(() => {
+    dispatch(getUser()).unwrap().then((dataResponse:any) => setUser(dataResponse?.body))
+  }, [dispatch])
+
+  console.log("user", user)
+
   return (
     <main className="main bg-dark">
       <div className="header">
-        <h1>Welcome back<br />Tony Jarvis!</h1>
+        <h1>Welcome back<br />{user?.firstName} {user?.lastName}</h1>
         <button className="edit-button">Edit Name</button>
       </div>
       <h2 className="sr-only">Accounts</h2>

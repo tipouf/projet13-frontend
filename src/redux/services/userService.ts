@@ -1,5 +1,6 @@
 const getUserToken = () => {
 	const token = localStorage.getItem('token')
+	console.log("tokenAAAAAA", token)
 	if (!token) {
 		return null
 	}
@@ -11,10 +12,15 @@ const API_URL = "http://localhost:3001/api/v1"
 export const getUser = async () => {
 	const token = getUserToken()
 
-	const response = await fetch(`${API_URL}/user`, {
+	console.log("getUser", token)
+
+	const response = await fetch(`${API_URL}/user/profile`, {
+		method: 'POST',
 		headers: { Authorization: `Bearer ${token}` }
 	})
 	const data = await response.json()
+
+	console.log("dataGetUser", data)
 	if (!response.ok) {
 		throw new Error(data.message)
 	}
@@ -23,7 +29,7 @@ export const getUser = async () => {
 
 export const updateUser = async (data: any) => {
 	const token = getUserToken()
-	const response = await fetch(`${API_URL}/user`, {
+	const response = await fetch(`${API_URL}/user/profile`, {
 		method: 'PATCH',
 		headers: {
 			'Content-Type': 'application/json',

@@ -16,8 +16,9 @@ export const login = async ({ email, password }: AuthLogin) => {
     if (!response.ok) {
         throw new Error(data.message)
     }
+    console.log("login here", data.body.token)
 
-    localStorage.setItem('token', data.token)
+    localStorage.setItem('token', data?.body?.token)
     return data
 }
 
@@ -25,19 +26,20 @@ export const logout = () => {
     localStorage.removeItem('token')
 }
 
-export const authReducer = (state = { isConnected: false, user: null }, action) => {
+export const authReducer = (state = { isConnected: false, token: null }, action) => {
     switch (action.type) {
         case 'LOGIN':
             return {
                 ...state,
                 isConnected: true,
-                user: action.payload
+                token: action.payload
+
             }
         case 'LOGOUT':
             return {
                 ...state,
                 isConnected: false,
-                user: null
+                token: null
             }
         default:
             return state

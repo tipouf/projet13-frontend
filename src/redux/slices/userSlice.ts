@@ -1,10 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { UserService } from "../../services/userService";
+import UserService from "../services/userService";
 
 const initialState = {
     user: null
 }
-
 
 const userSlice = createSlice({
   name: 'user',
@@ -18,7 +17,6 @@ const userSlice = createSlice({
   }
 })
 
-
 export const getUser = createAsyncThunk(
   'user/getUser',
   async () => {
@@ -26,7 +24,6 @@ export const getUser = createAsyncThunk(
     return response
   }
 )
-
 
 const { reducer } = userSlice
 export default reducer
