@@ -39,11 +39,11 @@ const Profil = () => {
     <main className="main bg-dark">
       <div className="header">
         <h1>Welcome back<br />{user?.firstName} {user?.lastName}</h1>
-        <button className="edit-button" onClick={() => toggleEdit()}>{editing ? 'Save' : 'Edit Name'}</button>
+        <button className="edit-button" onClick={() => toggleEdit()}>{editing ? 'Quitter edition' : 'Modifier'}</button>
         {editing && (
           <div className="edit-form">
-            <input type="text" placeholder="First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
-            <input type="text" placeholder="Last Name" value={lastName} onChange={(e) => setLastName(e.target.value)} />
+            <input type="text" placeholder="prénom" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+            <input type="text" placeholder="nom" value={lastName} onChange={(e) => setLastName(e.target.value)} />
             <button onClick={() => updateUserHandler()}>Save</button>
           </div>
         )}

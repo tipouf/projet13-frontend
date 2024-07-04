@@ -1,5 +1,5 @@
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useForm} from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
@@ -16,16 +16,23 @@ const LoginForm = () => {
 
   const [error, setError] = useState<string | null>(null)
 
+
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>()
 
   const { isConnected } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch()
 
+  useEffect(() => {
+    if (isConnected) {
+      navigate('/profil')
+    }
+  }, [isConnected])
+
+  
   const onSubmit = async (data: LoginFormData) => {
     try {
       await dispatch(login(data)).unwrap().then((dataResponse: { token: string } | undefined) => console.log("datavvdfdf", dataResponse))
-      .then(() => isConnected && navigate('/profil'))
 
       setError(null)
 
