@@ -19,7 +19,7 @@ const LoginForm = () => {
 
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>()
 
-  const { isConnected } = useSelector((state) => state.auth);
+  const { isConnected, user } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch()
 
@@ -27,7 +27,8 @@ const LoginForm = () => {
     if (isConnected) {
       navigate('/profil')
     }
-  }, [isConnected])
+    console.log("user", user)
+  }, [isConnected, user])
 
   
   const onSubmit = async (data: LoginFormData) => {

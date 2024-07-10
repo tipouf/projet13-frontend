@@ -45,12 +45,12 @@ export const updateUser = async (data: any) => {
 	return dataResponse
 }
 
-export const userReducer = (state = {}, action: any) => {
+export const userReducer = (state = { firstName: '', lastName: '' }, action: any) => {
 	switch (action.type) {
 		case 'GET_USER':
-			return action.payload
+			return { ...state, ...action.payload }
 		case 'UPDATE_USER':
-			return action.payload
+			return { ...state, ...action.payload }
 		default:
 			return state
 	}
@@ -58,7 +58,8 @@ export const userReducer = (state = {}, action: any) => {
 
 const UserService = {
 	getUser,
-	updateUser
+	updateUser,
+	userReducer
 }
 
 export default UserService

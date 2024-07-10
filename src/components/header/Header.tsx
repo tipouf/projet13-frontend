@@ -3,10 +3,10 @@ import './Header.scss';
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../../redux/slices/authSlice'
-
 const Header = () => {
   const dispatch = useDispatch()
   const { isConnected, token } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.user);
 
   return (
     <nav className="main-nav">
@@ -22,7 +22,7 @@ const Header = () => {
       <div>
         {isConnected && <Link className="main-nav-item" to="/profil">
           <i className="fa fa-user-circle"></i>
-          Profil
+          {user?.firstName}
         </Link>}
         {isConnected && token ?
         <Link className="main-nav-item" to="/logout" onClick={() => dispatch(logout())}>
