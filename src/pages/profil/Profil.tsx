@@ -1,10 +1,51 @@
 import './Profil.scss'
+import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { updateUser } from '../../redux/slices/userSlice'
+
 const Profil = () => {
+  const [editing, setEditing] = useState(false)
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+
+  const dispatch = useDispatch()
+  const { user: userRedux } = useSelector((state: any) => state.user);
+
+
+  const updateUserHandler = () => {
+    dispatch(updateUser({ firstName, lastName }))
+    setEditing(false)
+  }
+
+  const toggleEdit = () => {
+    setEditing(!editing)
+  }
+
   return (
     <main className="main bg-dark">
       <div className="header">
-        <h1>Welcome back<br />Tony Jarvis!</h1>
-        <button className="edit-button">Edit Name</button>
+        <h1>Welcome back<br />
+        {editing ? (
+          <div className="edit-form">
+            <input type="text" placeholder="prénom" value={firstName} className="edit-input" onChange={(e) => setFirstName(e.target.value)} />
+            <input type="text" placeholder="nom" value={lastName} className="edit-input" onChange={(e) => setLastName(e.target.value)} />
+          </div>
+        ) : (
+          <span>
+            {userRedux?.firstName} {userRedux?.lastName}
+          </span>
+        )}
+        </h1>
+        {editing ? (
+          <div className="button-form">
+            <button className="edit-button" onClick={() => updateUserHandler()}>Save</button>
+            <button className="edit-button" onClick={() => toggleEdit()}>Cancel</button>
+          </div>
+        ) : (
+          <button className="edit-button" onClick={() => toggleEdit()}>Edit Name</button>
+        )}
+        
+
       </div>
       <h2 className="sr-only">Accounts</h2>
       <section className="account">
@@ -42,3 +83,4 @@ const Profil = () => {
 }
 
 export default Profil
+

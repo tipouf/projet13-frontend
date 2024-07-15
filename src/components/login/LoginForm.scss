@@ -1,6 +1,6 @@
 
 main {
-    min-height: calc(100vh - 200px);
+    min-height: calc(100vh - 170px);
 }
 
 .sign-in-button {
@@ -15,14 +15,7 @@ main {
     color: #fff;
   }
   
-  .sign-in-content {
-    box-sizing: border-box;
-    background-color: white;
-    width: 300px;
-    margin: 0 auto;
-    margin-top: 3rem;
-    padding: 2rem;
-  }
+
   
   .sign-in-icon {
     font-size: 5rem;
@@ -50,4 +43,8 @@ main {
   .input-wrapper input {
     padding: 5px;
     font-size: 1.2rem;
+  }
+
+  .error-message {
+    color: red;
   }
