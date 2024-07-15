@@ -1,32 +1,18 @@
 import './Profil.scss'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getUser, updateUser } from '../../redux/slices/userSlice'
+import { updateUser } from '../../redux/slices/userSlice'
 
 const Profil = () => {
-  const [user, setUser] = useState<User | null>(null)
   const [editing, setEditing] = useState(false)
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
 
   const dispatch = useDispatch()
+  const { user: userRedux } = useSelector((state: any) => state.user);
 
-  type User = {
-    firstName: string
-    lastName: string
-  }
-
-  useEffect(() => {
-    dispatch(getUser()).unwrap().then((dataResponse:any) => {
-      setUser(dataResponse?.body)
-      setFirstName(dataResponse?.body?.firstName || '')
-      setLastName(dataResponse?.body?.lastName || '')
-    })
-  }, [dispatch])
 
   const updateUserHandler = () => {
-    console.log("updateUserHandler", firstName, lastName)
-    setUser({ firstName, lastName })
     dispatch(updateUser({ firstName, lastName }))
     setEditing(false)
   }
@@ -41,12 +27,12 @@ const Profil = () => {
         <h1>Welcome back<br />
         {editing ? (
           <div className="edit-form">
-            <input type="text" placeholder="prénom" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
-            <input type="text" placeholder="nom" value={lastName} onChange={(e) => setLastName(e.target.value)} />
+            <input type="text" placeholder="prénom" value={firstName} className="edit-input" onChange={(e) => setFirstName(e.target.value)} />
+            <input type="text" placeholder="nom" value={lastName} className="edit-input" onChange={(e) => setLastName(e.target.value)} />
           </div>
         ) : (
           <span>
-            {user?.firstName} {user?.lastName}
+            {userRedux?.firstName} {userRedux?.lastName}
           </span>
         )}
         </h1>
@@ -56,7 +42,7 @@ const Profil = () => {
             <button className="edit-button" onClick={() => toggleEdit()}>Cancel</button>
           </div>
         ) : (
-          <button className="edit-button" onClick={() => toggleEdit()}>Modifier</button>
+          <button className="edit-button" onClick={() => toggleEdit()}>Edit Name</button>
         )}
         
 
