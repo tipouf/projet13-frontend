@@ -34,21 +34,9 @@ export const updateUser = async (data: any) => {
 	return dataResponse
 }
 
-export const userReducer = (state = { firstName: '', lastName: '' }, action: any) => {
-	switch (action.type) {
-		case 'GET_USER':
-			return { ...state, ...action.payload }
-		case 'UPDATE_USER':
-			return { ...state, ...action.payload }
-		default:
-			return state
-	}
-}
-
 const UserService = {
 	getUser,
-	updateUser,
-	userReducer
+	updateUser
 }
 
-export default UserService
+export default UserService;
