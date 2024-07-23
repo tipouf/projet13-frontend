@@ -1,6 +1,6 @@
 # ARGENTBANK (React + TypeScript + Vite)
 
-Argent Bank est une nouvelle banque qui est entrain de mettre son application!
+Argent Bank est une nouvelle banque qui est entrain de créer son application!
 
 ## Installation Frontend
 
