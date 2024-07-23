@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
  const AllRoutes = () => {
 
-	const isConnected = useSelector((state: any) => state.auth.isConnected) || localStorage.getItem('token') || sessionStorage.getItem('token')
+	const isConnected = useSelector((state: { auth: { isConnected: boolean } }) => state.auth.isConnected) || localStorage.getItem('token') || sessionStorage.getItem('token')
 	
 	return (
 		<Routes>

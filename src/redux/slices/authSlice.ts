@@ -20,6 +20,7 @@ export const login = createAsyncThunk(
 			}
 			return data
 		} catch (error: any) {
+			console.log(error)
 			throw new Error(error)
 		}
 	}
