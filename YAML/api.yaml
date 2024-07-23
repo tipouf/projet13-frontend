@@ -129,7 +129,7 @@ paths:
         '200':
           description: Transactions retrieved successfully
           schema:
-            $ref: '#/definitions/ApiResponse'
+            $ref: '#/definitions/AllTransactions'
         '400':
           description: Invalid Fields
         '500':
@@ -158,7 +158,7 @@ paths:
         '200':
           description: Transaction retrieved successfully
           schema:
-            $ref: '#/definitions/ApiResponse'
+            $ref: '#/definitions/Transaction'
         '400':
           description: Invalid Fields
         '500':
@@ -226,7 +226,7 @@ paths:
         '200':
           description: User profile retrieved successully
           schema:
-            $ref: '#/definitions/ApiResponse'
+            $ref: '#/definitions/Transaction'
         '400':
           description: Invalid Fields
         '500':
@@ -254,7 +254,7 @@ paths:
         '200':
           description: User profile retrieved successully
           schema:
-            $ref: '#/definitions/ApiResponse'
+            $ref: '#/definitions/Transaction'
         '400':
           description: Invalid Fields
         '500':
@@ -287,15 +287,6 @@ definitions:
       password:
         type: string
         description: user password
-  Transaction:
-    type: object
-    properties:
-      amount:
-        type: number
-        description: transaction amount
-      description:
-        type: string
-        description: transaction description
   ApiResponse:
     type: object
     properties:
@@ -322,12 +313,34 @@ definitions:
         type: string
       lastName:
         type: string
-  TransactionResponse:
+  Transaction:
     type: object
     properties:
       id:
         type: string
+        description: transaction id
       amount:
         type: number
+        description: transaction amount
+      date:
+        type: string
+        format: date-time
+        description: transaction date
+      type:
+        type: string
+        enum: [Electronic, Cash, Credit]
+        description: transaction type
+      category:
+        type: string
+        description: transaction category
       description:
         type: string
+        description: Category description
+      notes:
+        type: string
+        description: transaction notes
+  AllTransactions:
+    type: array
+    items:
+      $ref: '#/definitions/Transaction'
+

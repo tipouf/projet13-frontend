@@ -1,23 +1,24 @@
 import argentBankLogo from '../../assets/argentBankLogo.png';
-import { useEffect, useState } from 'react';
-import './Header.scss';
+import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useAppDispatch, useAppSelector } from '../../redux/hook';
 import { logout } from '../../redux/slices/authSlice'
 import { FaUserCircle, FaSignOutAlt } from "react-icons/fa";
 import { getUser } from '../../redux/slices/userSlice'
 const Header = () => {
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
-  useEffect(() => {
-    if (localStorage.getItem('token') || sessionStorage.getItem('token')) {
-      dispatch(getUser())
-    }
-  }, [])
+  const token = localStorage.getItem('token') || sessionStorage.getItem('token') || null
 
-  const { user } = useSelector((state: any) => state.user);
+  useEffect(() => {
+    if (token !== null) {
+      dispatch(getUser({ token }));
+    }
+  }, []);
+
+  const { user } = useAppSelector((state: any) => state.user);
 
   const isConnected = localStorage.getItem('token') || sessionStorage.getItem('token')
 
@@ -39,17 +40,19 @@ const Header = () => {
 
       <div className="main-nav-items">
         {isConnected && <Link className="main-nav-item" to="/profil">
-          <FaUserCircle />
+          <FaUserCircle className="main-nav-item-icon" />
+          <span>
           {user?.firstName}
+          </span>
         </Link>}
         {isConnected ?
         <Link className="main-nav-item" to="/" onClick={handleLogout}>
-          <FaSignOutAlt />
+          <FaSignOutAlt className='main-nav-item-icon' />
           Sign Out
         </Link>
         : 
         <Link className="main-nav-item" to="/login">
-          <FaUserCircle />
+          <FaUserCircle className="main-nav-item-icon" />
           Sign In
         </Link>
         }

@@ -1,16 +1,20 @@
 import './Profil.scss'
-import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useEffect, useState } from 'react'
 import { updateUser } from '../../redux/slices/userSlice'
+import { useAppDispatch, useAppSelector } from '../../redux/hook'
 
 const Profil = () => {
   const [editing, setEditing] = useState(false)
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
 
-  const dispatch = useDispatch()
-  const { user: userRedux } = useSelector((state: any) => state.user);
+  const dispatch = useAppDispatch()
+  const { user: userRedux } = useAppSelector((state: any) => state.user);
 
+  useEffect(() => {
+    setFirstName(userRedux?.firstName)
+    setLastName(userRedux?.lastName)
+  }, [userRedux])
 
   const updateUserHandler = () => {
     dispatch(updateUser({ firstName, lastName }))
