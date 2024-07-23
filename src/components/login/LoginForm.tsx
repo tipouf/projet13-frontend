@@ -21,7 +21,7 @@ const LoginForm = () => {
 
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>()
 
-  const { isConnected } = useAppSelector((state:any) => state.auth);
+  const { isConnected } = useAppSelector((state: { auth: { isConnected: boolean } }) => state.auth);
 
   const dispatch = useAppDispatch()
 

@@ -18,7 +18,7 @@ const Header = () => {
     }
   }, []);
 
-  const { user } = useAppSelector((state: any) => state.user);
+  const { user } = useAppSelector((state: { user: { user: { firstName: string; lastName: string } } }) => state.user);
 
   const isConnected = localStorage.getItem('token') || sessionStorage.getItem('token')
 

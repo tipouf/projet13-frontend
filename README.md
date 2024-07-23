@@ -26,7 +26,7 @@ password: password123
 
 ## Installation Environnement backend
 
-Use the Repo : [repo frontend](https://github.com/tipouf/projet13-backend)
+Use the Repo : [repo backend](https://github.com/tipouf/Project13-backend)
 
 Go to the backend folder and use 
 

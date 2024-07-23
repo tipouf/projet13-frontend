@@ -17,7 +17,7 @@ export const getUser = async (tokenResponse: string) => {
 	return data
 }
 
-export const updateUser = async (data: any) => {
+export const updateUser = async (data: { firstName: string; lastName: string }) => {
 	const token = getUserToken()
 	const response = await fetch(`${API_URL}/user/profile`, {
 		method: 'PUT',

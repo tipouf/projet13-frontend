@@ -9,7 +9,7 @@ const Profil = () => {
   const [lastName, setLastName] = useState('')
 
   const dispatch = useAppDispatch()
-  const { user: userRedux } = useAppSelector((state: any) => state.user);
+  const { user: userRedux } = useAppSelector((state: { user: { user: { firstName: string; lastName: string } } }) => state.user);
 
   useEffect(() => {
     setFirstName(userRedux?.firstName)

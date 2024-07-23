@@ -15,7 +15,7 @@ export const getUser = createAsyncThunk(
 
 export const updateUser = createAsyncThunk(
   'user/updateUser',
-    async (data: any) => {
+    async (data: { firstName: string; lastName: string }) => {
       const response = await UserService.updateUser(data)
     return response
   }
