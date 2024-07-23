@@ -29,7 +29,7 @@ export const logout = createAsyncThunk(
 	'auth/logout',
 	async () => {
 		try {
-			const data = await AuthService.logout()
+			const data = AuthService.logout()
 			return data
 		}
 		catch (error: any) {

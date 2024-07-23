@@ -11,8 +11,6 @@ const Profil = () => {
   const dispatch = useAppDispatch()
   const { user: userRedux } = useAppSelector((state: any) => state.user);
 
-  console.log(userRedux)
-
   useEffect(() => {
     setFirstName(userRedux?.firstName)
     setLastName(userRedux?.lastName)

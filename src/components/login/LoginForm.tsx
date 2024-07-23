@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useAppDispatch, useAppSelector } from '../../redux/hook'
 import { useForm} from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { login } from '../../redux/slices/authSlice'
@@ -21,9 +21,9 @@ const LoginForm = () => {
 
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>()
 
-  const { isConnected } = useSelector((state:any) => state.auth);
+  const { isConnected } = useAppSelector((state:any) => state.auth);
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     if (isConnected) {
@@ -40,7 +40,6 @@ const LoginForm = () => {
       navigate('/profil');
       setError(null);
     } catch (error) {
-      console.error("error login", error);
       setError('Invalid email or password');
     }
   }
