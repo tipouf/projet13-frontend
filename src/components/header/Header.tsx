@@ -2,7 +2,6 @@ import argentBankLogo from '../../assets/argentBankLogo.png';
 import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../redux/hook';
-import { logout } from '../../redux/slices/authSlice'
 import { FaUserCircle, FaSignOutAlt } from "react-icons/fa";
 import { getUser } from '../../redux/slices/userSlice'
 const Header = () => {
@@ -21,7 +20,7 @@ const Header = () => {
   const { user } = useAppSelector((state: { user: { user: { firstName: string; lastName: string } } }) => state.user);
 
   const handleLogout = () => {
-    dispatch(logout())
+    dispatch({ type: 'auth/logout' })
     navigate('/')
   }
 
