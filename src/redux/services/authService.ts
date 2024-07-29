@@ -1,29 +1,27 @@
 export type AuthLogin = {
-    email: string
-    password: string
+	email: string
+	password: string
 }
 
 const API_URL = "http://localhost:3001/api/v1"
 
-
-
 const login = async ({ email, password }: AuthLogin) => {
 	const response = await fetch(`${API_URL}/user/login`, {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ email, password })
-    })
-    const data = await response.json()
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify({ email, password })
+	})
+	const data = await response.json()
 
-    if (!response.ok) {
-        throw new Error(data.message)
-    }
-    return data
+	if (!response.ok) {
+		throw new Error(data.message)
+	}
+return data
 }
 
 const logout = () => {
-    localStorage.removeItem('token')
-    sessionStorage.removeItem('token')
+	localStorage.removeItem('token')
+	sessionStorage.removeItem('token')
 }
 
 const AuthService = {

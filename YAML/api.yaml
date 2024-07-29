@@ -67,6 +67,7 @@ paths:
       description: API for fetching a user profile
       parameters:
         - in: header
+          type: string
           name: Authorization
           description: Attach Bearer JWT token
           required: true
@@ -93,6 +94,7 @@ paths:
           name: Authorization
           description: Attach Bearer JWT token
           required: true
+          type: string
         - in: body
           name: body
           description: Update user profile attributes
@@ -122,6 +124,7 @@ paths:
         - in: header
           name: Authorization
           description: Attach Bearer JWT token
+          type: string
           required: true
       produces:
         - application/json
@@ -147,6 +150,7 @@ paths:
           name: Authorization
           description: Attach Bearer JWT token
           required: true
+          type: string
         - in: path
           name: id
           description: Transaction id
@@ -161,40 +165,8 @@ paths:
             $ref: '#/definitions/Transaction'
         '400':
           description: Invalid Fields
-        '500':
-          description: Internal Server Error
-    put:
-      security:
-        - Bearer: []
-      tags:
-        - Transaction Module
-      summary: User Transaction API
-      description: update a specific user transaction
-      parameters:
-        - in: header
-          name: Authorization
-          description: Attach Bearer JWT token
-          required: true
-        - in: path
-          name: id
-          description: Transaction id
-          required: true
-          type: string
-        - in: body
-          name: body
-          description: The updated transaction
-          required: true
-          schema:
-            $ref: '#/definitions/Transaction'
-      produces:
-        - application/json
-      responses:
-        '200':
-          description: Transaction updated successfully
-          schema:
-            $ref: '#/definitions/ApiResponse'
-        '400':
-          description: Invalid Fields
+        '404':
+          description: Transaction not found
         '500':
           description: Internal Server Error
     patch:
@@ -209,6 +181,7 @@ paths:
           name: Authorization
           description: Attach Bearer JWT token
           required: true
+          type: string
         - in: path
           name: id
           description: Transaction id
@@ -227,36 +200,8 @@ paths:
           description: User profile retrieved successully
           schema:
             $ref: '#/definitions/Transaction'
-        '400':
-          description: Invalid Fields
-        '500':
-          description: Internal Server Error
-    delete:
-      security:
-        - Bearer: []
-      tags:
-        - Transaction Module
-      summary: User Transaction API
-      description: delete a specific user transaction
-      parameters:
-        - in: header
-          name: Authorization
-          description: Attach Bearer JWT token
-          required: true
-        - in: path
-          name: id
-          description: Transaction id
-          required: true
-          type: string
-      produces:
-        - application/json
-      responses:
-        '200':
-          description: User profile retrieved successully
-          schema:
-            $ref: '#/definitions/Transaction'
-        '400':
-          description: Invalid Fields
+        '404':
+          description: Transaction not found
         '500':
           description: Internal Server Error
 securityDefinitions:

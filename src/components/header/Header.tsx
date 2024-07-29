@@ -10,7 +10,7 @@ const Header = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
-  const token = localStorage.getItem('token') || sessionStorage.getItem('token') || null
+  const token = localStorage.getItem('token') || sessionStorage.getItem('token')
 
   useEffect(() => {
     if (token !== null) {
@@ -19,8 +19,6 @@ const Header = () => {
   }, []);
 
   const { user } = useAppSelector((state: { user: { user: { firstName: string; lastName: string } } }) => state.user);
-
-  const isConnected = localStorage.getItem('token') || sessionStorage.getItem('token')
 
   const handleLogout = () => {
     dispatch(logout())
@@ -39,13 +37,13 @@ const Header = () => {
       </Link>
 
       <div className="main-nav-items">
-        {isConnected && <Link className="main-nav-item" to="/profil">
+        {token && <Link className="main-nav-item" to="/profil">
           <FaUserCircle className="main-nav-item-icon" />
           <span>
           {user?.firstName}
           </span>
         </Link>}
-        {isConnected ?
+        {token ?
         <Link className="main-nav-item" to="/" onClick={handleLogout}>
           <FaSignOutAlt className='main-nav-item-icon' />
           Sign Out
