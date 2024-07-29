@@ -19,14 +19,8 @@ const login = async ({ email, password }: AuthLogin) => {
 return data
 }
 
-const logout = () => {
-	localStorage.removeItem('token')
-	sessionStorage.removeItem('token')
-}
-
 const AuthService = {
-	login,
-	logout
+	login
 }
 
 export default AuthService

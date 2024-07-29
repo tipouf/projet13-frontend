@@ -26,19 +26,6 @@ export const login = createAsyncThunk(
 	}
 )
 
-export const logout = createAsyncThunk(
-	'auth/logout',
-	async () => {
-		try {
-			const data = AuthService.logout()
-			return data
-		}
-		catch (error: any) {
-			throw new Error(error)
-		}
-	}
-)
-
 interface IAuthState {
 	token: string | null,
 	isConnected: boolean,
@@ -55,16 +42,18 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
+		logout: (state) => {
+			state.token = null
+			state.isConnected = false
+			localStorage.removeItem('token')
+			sessionStorage.removeItem('token')
+		}
   },
   extraReducers: (builder) => {
 	builder
 	  .addCase(login.fulfilled, (state, action) => {
 		state.token = action.payload
 		state.isConnected = true
-	  })
-	  .addCase(logout.fulfilled, (state) => {
-		state.token = null
-		state.isConnected = false
 	  })
   }
 })
